@@ -30,6 +30,7 @@ provider:
 #                - "/*"
 
 functions:
-  hello:
-    handler: handler.hello
+  createUserStream:
+    handler: createUserStream.handler
+    
 
