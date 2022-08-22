@@ -30,18 +30,11 @@ exports.handler = async (event) => {
 
   try {
 
-    console.log('Event: ', JSON.stringify(event, null, 2));
-
     const body = JSON.parse(event.body);
 
     const userId = body.userId;
 
-    console.log('UserId: ', userId);
-
     const userStream = await getUserStream(userId);
-
-    console.log('UserStream: ', JSON.stringify(userStream, null, 2));
-
 
     if (!userStream) {
 
@@ -64,8 +57,6 @@ exports.handler = async (event) => {
     }
 
     const updatedUserStream = await addStream(userId, userStream.totalStreams + 1);
-
-    console.log('UpdatedUserStream: ', JSON.stringify(updatedUserStream, null, 2));
 
     return response(200, {
       userId: userId,
