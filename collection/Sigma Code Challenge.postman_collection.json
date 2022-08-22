@@ -1,0 +1,76 @@
+{
+	"id": "20198149-abba-a4c1-f703-cce89feb07d5",
+	"name": "Sigma Code Challenge",
+	"description": "",
+	"order": [
+		"9c382edc-e9d4-0094-7963-7d55958d1110",
+		"75d33dbf-f022-9a54-5a71-4062a22ce48a"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1661098747457,
+	"owner": "7308202",
+	"public": false,
+	"requests": [
+		{
+			"id": "75d33dbf-f022-9a54-5a71-4062a22ce48a",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/dev/streams/remove",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1661178075246,
+			"name": "RemoveUserStream",
+			"description": "",
+			"collectionId": "20198149-abba-a4c1-f703-cce89feb07d5",
+			"responses": [],
+			"rawModeData": "{\n\t\"userId\": \"ab-123\"\n}"
+		},
+		{
+			"id": "9c382edc-e9d4-0094-7963-7d55958d1110",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": " http://localhost:3000/dev/streams/add",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1661178078162,
+			"name": "CreateUserStream",
+			"description": "",
+			"collectionId": "20198149-abba-a4c1-f703-cce89feb07d5",
+			"responses": [],
+			"rawModeData": "{\n\t\"userId\": \"ab-123\"\n}"
+		}
+	]
+}
