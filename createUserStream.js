@@ -26,7 +26,7 @@ const response = (statusCode, message) => {
 
 }
 
-exports.hello = async (event) => {
+exports.handler = async (event) => {
 
   try {
 
