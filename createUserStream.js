@@ -83,6 +83,7 @@ exports.hello = async (event) => {
 
 
 const getUserStream = async (userId) => {
+
   try {
 
     const params = {
@@ -110,7 +111,9 @@ const getUserStream = async (userId) => {
 
 // Create a new user with a default of 1 stream
 const createNewUserStream = async (userId) => {
+
   try {
+
     const params = {
       TableName: process.env.USER_STREAMS_TABLE,
       Item: {
@@ -131,7 +134,9 @@ const createNewUserStream = async (userId) => {
 }
 
 const addStream = async (userId, totalStreams) => {
+  
   try {
+    
     const params = {
       TableName: process.env.USER_STREAMS_TABLE,
       Key: {
@@ -147,6 +152,7 @@ const addStream = async (userId, totalStreams) => {
     const updateResults = await dynamoDB.update(params).promise();
 
     return updateResults;
+
   } catch (error) {
 
     console.log('Error adding stream: ', JSON.stringify(error, null, 2));
