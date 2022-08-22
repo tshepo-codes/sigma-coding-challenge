@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/tshepo325/sigma-coding-challenge#readme",
   "devDependencies": {
+    "serverless-dynamodb-local": "^0.2.40",
     "serverless-offline": "^9.2.6"
   }
 }

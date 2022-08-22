@@ -94,7 +94,7 @@ const getUserStream = async (userId) => {
   try {
 
     const params = {
-      TableName: 'UserStream',
+      TableName: process.env.USER_STREAMS_TABLE,
       Key: {
         userId: userId
       }
