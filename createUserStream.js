@@ -44,13 +44,33 @@ exports.hello = async (event) => {
 
 
     if (!userStream) {
-      // create user stream
-      console.log('No user stream found, creating one');
-      //return response
-      return;
+
+      await createNewUserStream(userId);
+
+      return response(201,
+        {
+          userId: userId,
+          totalStreams: 1
+        });
+
     }
 
-    console.log('No user stream found, creating one');
+    if (userStream.totalStreams >= 3) {
+
+      const message = `User ${userId} has reached the maximum number of streams.`;
+
+      return response(400, message);
+
+    }
+
+    const updatedUserStream = await addStream(userId, userStream.totalStreams + 1);
+
+    console.log('UpdatedUserStream: ', JSON.stringify(updatedUserStream, null, 2));
+
+    return response(200, {
+      userId: userId,
+      totalStreams: updatedUserStream.Attributes.totalStreams
+    });
 
 
   } catch (error) {
@@ -104,9 +124,36 @@ const createNewUserStream = async (userId) => {
   } catch (error) {
 
     console.log('Error creating new user stream: ', JSON.stringify(error, null, 2));
-    
+
     throw error;
-    
+
   }
 }
+
+const addStream = async (userId, totalStreams) => {
+  try {
+    const params = {
+      TableName: process.env.USER_STREAMS_TABLE,
+      Key: {
+        userId: userId
+      },
+      UpdateExpression: "set totalStreams = :totalStreams",
+      ExpressionAttributeValues: {
+        ":totalStreams": totalStreams,
+      },
+      ReturnValues: "UPDATED_NEW",
+    };
+
+    const updateResults = await dynamoDB.update(params).promise();
+
+    return updateResults;
+  } catch (error) {
+
+    console.log('Error adding stream: ', JSON.stringify(error, null, 2));
+
+    throw error;
+
+  }
+}
+
 
