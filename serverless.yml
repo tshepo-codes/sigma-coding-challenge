@@ -41,6 +41,15 @@ functions:
           path: /streams/add
           method: post
 
+  removeUserStream:
+    handler: removeUserStream.handler
+    name: RemoveUserStream
+    description: POST /streams/remove
+    events:
+      - http:
+          path: /streams/remove
+          method: post
+
 resources:
   Resources:
     UserStreamsTable:
