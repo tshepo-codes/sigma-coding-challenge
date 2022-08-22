@@ -29,6 +29,10 @@ provider:
 #                - "Ref" : "ServerlessDeploymentBucket"
 #                - "/*"
 
+
+custom:
+  USER_STREAMS_TABLE: user-streams-management-${self:provider.stage}
+
 functions:
   createUserStream:
     handler: createUserStream.handler
@@ -38,4 +42,21 @@ functions:
       - http:
           path: /streams/add
           method: post
+
+resources:
+  Resources:
+    UserStreamsTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:custom.USER_STREAMS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        SSESpecification:
+          SSEEnabled: true
+          SSEType: KMS
 
