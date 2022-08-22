@@ -25,7 +25,9 @@ exports.hello = async (event) => {
     const userId = body.userId;
 
     console.log('UserId: ', userId);
-    
+
+    const userStream = await getUserStream(userId);
+
   } catch (error) {
 
     console.log('Error: ', JSON.stringify(error, null, 2));
@@ -33,5 +35,30 @@ exports.hello = async (event) => {
   }
 
 };
+
+
+const getUserStream = async (userId) => {
+  try {
+
+    const params = {
+      TableName: 'UserStream',
+      Key: {
+        userId: userId
+      }
+    };
+
+    const data = await dynamoDB.get(params).promise();
+
+    return data.Item;
+
+  } catch (error) {
+
+    console.log('Error getting user stream: ', JSON.stringify(error, null, 2));
+
+    throw error;
+    
+  }
+
+}
 
 
