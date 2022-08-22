@@ -87,3 +87,26 @@ const getUserStream = async (userId) => {
 }
 
 
+
+// Create a new user with a default of 1 stream
+const createNewUserStream = async (userId) => {
+  try {
+    const params = {
+      TableName: process.env.USER_STREAMS_TABLE,
+      Item: {
+        userId: userId,
+        totalStreams: 1
+      }
+    };
+
+    await dynamoDB.put(params).promise();
+
+  } catch (error) {
+
+    console.log('Error creating new user stream: ', JSON.stringify(error, null, 2));
+    
+    throw error;
+    
+  }
+}
+
