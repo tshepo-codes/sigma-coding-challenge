@@ -52,8 +52,11 @@ The solution has two http endpoints:
         ```
 
 ### Deploying the project to AWS
-In case the service needs to be deployed to AWS
+In case the service needs to be deployed to AWS run the following command:
+`serverless deploy --stage dev`
 
+To remove the project run the following command:
+`serverless remove --stage dev`
 
 ## Scalability
 
