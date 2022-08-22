@@ -32,5 +32,10 @@ provider:
 functions:
   createUserStream:
     handler: createUserStream.handler
-    
+    name: CreateUserStream
+    description: POST /streams/add
+    events:
+      - http:
+          path: /streams/add
+          method: post
 
