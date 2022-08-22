@@ -4,7 +4,7 @@ const AWS = require('aws-sdk');
 
 let dynamoOptions = {};
 
-if (process.env.IS_LOCAL) {
+if (process.env.IS_OFFLINE) {
 
     dynamoOptions = {
         region: "localhost",
