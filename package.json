@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/tshepo325/sigma-coding-challenge/issues"
   },
-  "homepage": "https://github.com/tshepo325/sigma-coding-challenge#readme"
+  "homepage": "https://github.com/tshepo325/sigma-coding-challenge#readme",
+  "devDependencies": {
+    "serverless-offline": "^9.2.6"
+  }
 }
