@@ -35,6 +35,31 @@ exports.handler = async (event) => {
 
         const userId = body.userId;
 
+        const userStream = await getUserStream(userId);
+
+        if (!userStream) {
+
+            const message = `User ${userId} does not exist.`;
+
+            return response(400, message);
+
+        }
+
+        if (userStream.totalStreams >= 1) {
+
+            const updatedUserStream = await removeStream(userId, userStream.totalStreams - 1);
+
+            return response(200, {
+                userId: userId,
+                totalStreams: updatedUserStream.Attributes.totalStreams
+            });
+
+        }
+
+        const message = `User ${userId} has no streams.`;
+
+        return response(400, message);
+
     } catch (error) {
 
         console.log('Error: ', JSON.stringify(error, null, 2));
@@ -49,3 +74,62 @@ exports.handler = async (event) => {
     }
 
 }
+
+
+const getUserStream = async (userId) => {
+
+    try {
+        
+        const params = {
+            TableName: process.env.USER_STREAMS_TABLE,
+            Key: {
+                userId: userId,
+            },
+            Limit: 1
+        };
+    
+        const userStream = await dynamoDB.get(params).promise();
+    
+        return userStream.Item;
+
+    } catch (error) {
+
+        console.log('Error getting user stream: ', JSON.stringify(error, null, 2));
+
+        throw error;
+
+    }
+
+}
+
+
+const removeStream = async (userId, totalStreams) => {
+
+    try {
+
+        const params = {
+            TableName: process.env.USER_STREAMS_TABLE,
+            Key: {
+                userId: userId
+            },
+            UpdateExpression: "set totalStreams = :totalStreams",
+            ExpressionAttributeValues: {
+                ":totalStreams": totalStreams,
+            },
+            ReturnValues: "UPDATED_NEW",
+        };
+
+        const updateResults = await dynamoDB.update(params).promise();
+
+        return updateResults;
+
+    } catch (error) {
+
+        console.log('Error removing stream: ', JSON.stringify(error, null, 2));
+
+        throw error;
+
+    }
+
+}
+
