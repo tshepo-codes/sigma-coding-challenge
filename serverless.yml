@@ -10,6 +10,8 @@ provider:
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'af-south-1'}
+  environment:
+    USER_STREAMS_TABLE: ${self:custom.USER_STREAMS_TABLE}
 
 # you can add statements to the Lambda function's IAM Role here
 #  iam:
