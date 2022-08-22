@@ -2,6 +2,12 @@
 
 const AWS = require('aws-sdk');
 
+const Ajv = require('ajv');
+
+const ajv = new Ajv();
+
+const requestSchema = require('./schema/removeStreamRequestSchema.json');
+
 let dynamoOptions = {};
 
 if (process.env.IS_OFFLINE) {
@@ -32,6 +38,12 @@ exports.handler = async (event) => {
     try {
 
         const body = JSON.parse(event.body);
+
+        const valid = ajv.validate(requestSchema, body);
+
+        if (!valid) {
+            return response(400, ajv.errorsText());
+        }
 
         const userId = body.userId;
 
@@ -79,7 +91,7 @@ exports.handler = async (event) => {
 const getUserStream = async (userId) => {
 
     try {
-        
+
         const params = {
             TableName: process.env.USER_STREAMS_TABLE,
             Key: {
@@ -87,9 +99,9 @@ const getUserStream = async (userId) => {
             },
             Limit: 1
         };
-    
+
         const userStream = await dynamoDB.get(params).promise();
-    
+
         return userStream.Item;
 
     } catch (error) {

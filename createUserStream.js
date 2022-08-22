@@ -2,6 +2,12 @@
 
 const AWS = require('aws-sdk');
 
+const Ajv = require('ajv');
+
+const ajv = new Ajv();
+
+const requestSchema = require('./schema/createStreamRequestSchema.json');
+
 let dynamoOptions = {};
 
 if (process.env.IS_OFFLINE ) {
@@ -31,6 +37,12 @@ exports.handler = async (event) => {
   try {
 
     const body = JSON.parse(event.body);
+
+    const valid = ajv.validate(requestSchema, body);
+
+    if (!valid) { 
+      return response(400, ajv.errorsText());
+    }
 
     const userId = body.userId;
 

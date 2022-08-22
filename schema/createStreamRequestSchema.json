@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "title": "Create User Stream",
+    "description": "Create User Stream",
+    "required": ["userId"],
+    "properties": {
+        "userId": { "type": ["string"] }
+    }
+}

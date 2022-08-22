@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "title": "Remove User Stream",
+    "description": "Remove User Stream",
+    "required": ["userId"],
+    "properties": {
+        "userId": { "type": ["string"] }
+    }
+}
