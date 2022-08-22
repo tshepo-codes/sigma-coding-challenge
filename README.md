@@ -14,7 +14,7 @@ I took a straightforward approach to this issue while keeping scalability in min
 To setup DynamoDD locally access the following link: [Deploying DynamoDb Locally](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
 
 
-Once the DynamoDB is setup locally, run the db on your computer.
+Once the DynamoDB is setup locally, run the db on your computer (The command for this is different based on how you setup the local DB).
 
 Create a new table by running the following script:
 `aws dynamodb create-table --attribute-definitions AttributeName=userId,AttributeType=S --table-name user-streams-management-dev --key-schema AttributeName=userId,KeyType=HASH --billing-mode PAY_PER_REQUEST  --output json --endpoint-url http://localhost:8000`
@@ -28,7 +28,7 @@ Run the following command to verify that the table has been created:
 * Run `npm install` to install dependencies
 * Run `serverless offline` to run the server locally
 * Use an http client to test enpoints
-    * I've provided a postman collection with all the endpoints in the collections direction of this repo
+    * I've provided a postman collection with all the endpoints in the collections directory of this repo
 
 ### Endpoints
 The solution has two http endpoints:
