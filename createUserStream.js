@@ -14,6 +14,18 @@ if (process.env.IS_LOCAL) {
 const dynamoDB = new AWS.DynamoDB.DocumentClient(dynamoOptions);
 
 
+const response = (statusCode, message) => {
+
+  return {
+    statusCode: statusCode,
+    body: JSON.stringify({
+      statusCode: statusCode,
+      message: message
+    })
+  }
+
+}
+
 exports.hello = async (event) => {
 
   try {
@@ -27,6 +39,19 @@ exports.hello = async (event) => {
     console.log('UserId: ', userId);
 
     const userStream = await getUserStream(userId);
+
+    console.log('UserStream: ', JSON.stringify(userStream, null, 2));
+
+
+    if (!userStream) {
+      // create user stream
+      console.log('No user stream found, creating one');
+      //return response
+      return;
+    }
+
+    console.log('No user stream found, creating one');
+
 
   } catch (error) {
 
@@ -56,7 +81,7 @@ const getUserStream = async (userId) => {
     console.log('Error getting user stream: ', JSON.stringify(error, null, 2));
 
     throw error;
-    
+
   }
 
 }
