@@ -77,6 +77,13 @@ exports.hello = async (event) => {
 
     console.log('Error: ', JSON.stringify(error, null, 2));
 
+    return response(
+      error.statusCode ? error.statusCode : 500,
+      {
+        error: error.name ? error.name : 'Exception',
+        message: error.message ? error.message : 'Unknown error'
+      })
+
   }
 
 };
@@ -136,7 +143,7 @@ const createNewUserStream = async (userId) => {
 const addStream = async (userId, totalStreams) => {
   
   try {
-    
+
     const params = {
       TableName: process.env.USER_STREAMS_TABLE,
       Key: {
